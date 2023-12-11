@@ -1,9 +1,8 @@
 import express from "express";
 import cors from "cors";
 import { Genre, Item } from "./types";
-
-import { popularAll, popularMovie, popularSerie } from "./API/popular";
-import { movieGenre, serieGenre } from "./API/generes";
+import { getDetail, getGenre } from "./API";
+import { getPopular } from "./API";
 
 const app = express();
 const port = 4000;
@@ -15,46 +14,41 @@ app.use(
 );
 
 app.get("/popular", async (req, res) => {
-  const data = await popularAll();
-  const result: Item[] = data.results;
-  res.send(result);
+  const data = await getPopular();
+  res.send(data);
 });
 
-app.get("/popularMovie", async (req, res) => {
-  const data = await popularMovie();
-  const result: Item[] = data.results;
-  res.send(result);
-});
-
-app.get("/popularSerie", async (req, res) => {
-  const data = await popularSerie();
-  const result: Item[] = data.results;
-  res.send(result);
-});
-
-app.get("/genreMovie", async (req, res) => {
-  const data = await movieGenre();
+app.get("/genreMovies", async (req, res) => {
+  const data = await getGenre("movie");
   if (data) {
     const result: Genre[] = data;
     res.send(result);
   }
 });
 
-app.get("/genreSerie", async (req, res) => {
-  const data = await movieGenre();
+app.get("/genreSeries", async (req, res) => {
+  const data = await getGenre("tv");
   if (data) {
     const result: Genre[] = data;
-    console.log(result);
     res.send(result);
   }
 });
+
+app.get("/detail/:media/:id", async (req, res) => {
+  const { media, id } = req.params;
+  const data = await getDetail("tv", parseInt(id));
+  res.send(data);
+});
+
+// arreglar mas adelante
+// app.get("/search/:name", async (req, res) => {
+//   const { name } = req.params;
+//   if (name) {
+//     const data = await search(name);
+//     res.send(data);
+//   }
+// });
 
 app.listen(port, () => {
   console.log("server run on port: ", port);
 });
-
-//TODO:
-// -seguir con el front
-// -mergear los generos
-// -conseguir las imagenes
-// y ver que mas se me ocurre

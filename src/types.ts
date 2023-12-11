@@ -17,6 +17,8 @@ export interface Item {
   original_country?: string[];
 }
 
+export type MediaType = "movie" | "tv";
+
 export interface Genre {
   id: number;
   name: string;

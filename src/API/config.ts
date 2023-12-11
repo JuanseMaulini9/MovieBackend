@@ -3,6 +3,12 @@ export const urlPopular = "https://api.themoviedb.org/3/trending/";
 
 export const urlGenre = "https://api.themoviedb.org/3/genre/";
 
+export const urlDetail = "https://api.themoviedb.org/3/";
+
+export const urlSearch = "https://api.themoviedb.org/3/search/mult";
+
+export const urlImage = "https://image.tmdb.org/t/p/original/";
+
 //////////////////// fetch config ///////////////
 export const options = {
   method: "GET",
