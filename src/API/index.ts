@@ -1,6 +1,13 @@
 import { format } from "../utils";
 import { Item, Genre, MediaType } from "../types";
-import { urlPopular, urlGenre, options, urlSearch, urlDetail } from "./config";
+import {
+  urlPopular,
+  urlGenre,
+  options,
+  urlSearch,
+  urlDetail,
+  urlTop,
+} from "./config";
 
 export const getPopular = async () => {
   let response;
@@ -8,7 +15,7 @@ export const getPopular = async () => {
     const res = await fetch(`${urlPopular}all/week`, options);
     response = await res.json();
     const result: Item[] = response.results;
-    console.log(response);
+
     return result.map((item) => format(item));
   } catch (err) {
     console.error("error:" + err);
@@ -20,11 +27,21 @@ export async function getDetail(mediaType: MediaType, id: number) {
   try {
     const res = await fetch(`${urlDetail}${mediaType}/${id}`, options);
     response = await res.json();
-    console.log(response);
+
     return format(response);
   } catch (err) {
     console.error("error:" + err);
   }
+}
+
+export async function getTopRated(mediaType: MediaType) {
+  let response;
+  try {
+    const res = await fetch(`${urlTop}${mediaType}/top_rated`, options);
+    response = await res.json();
+    const result: Item[] = response.results;
+    return result.map((item) => format(item));
+  } catch (e) {}
 }
 
 // arreglar mas adelante
