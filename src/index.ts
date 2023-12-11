@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { Genre, Item } from "./types";
-import { getDetail, getGenre, getTopRated } from "./API";
+import { getDetail, getGenre, getInTheaters, getTopRated } from "./API";
 import { getPopular } from "./API";
 
 const app = express();
@@ -48,6 +48,11 @@ app.get("/topRatedMovie", async (req, res) => {
 
 app.get("/topRatedSerie", async (req, res) => {
   const data = await getTopRated("tv");
+  res.send(data);
+});
+
+app.get("/theatres", async (req, res) => {
+  const data = await getInTheaters();
   res.send(data);
 });
 

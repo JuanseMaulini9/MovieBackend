@@ -9,6 +9,8 @@ export const urlTop = "https://api.themoviedb.org/3/";
 
 export const urlSearch = "https://api.themoviedb.org/3/search/mult";
 
+export const urlNow = "https://api.themoviedb.org/3/movie/now_playing";
+
 export const urlImage = "https://image.tmdb.org/t/p/original/";
 
 //////////////////// fetch config ///////////////

@@ -7,6 +7,7 @@ import {
   urlSearch,
   urlDetail,
   urlTop,
+  urlNow,
 } from "./config";
 
 export const getPopular = async () => {
@@ -38,6 +39,16 @@ export async function getTopRated(mediaType: MediaType) {
   let response;
   try {
     const res = await fetch(`${urlTop}${mediaType}/top_rated`, options);
+    response = await res.json();
+    const result: Item[] = response.results;
+    return result.map((item) => format(item));
+  } catch (e) {}
+}
+
+export async function getInTheaters() {
+  let response;
+  try {
+    const res = await fetch(urlNow, options);
     response = await res.json();
     const result: Item[] = response.results;
     return result.map((item) => format(item));
